@@ -2,8 +2,8 @@
 
 ## Command Info
 
-```
-AutoWifiLogin 1.0.2
+```bash
+AutoWifiLogin 1.0.3
 Copyright (C) 2021 Weiting
 
 ERROR(S):
@@ -27,6 +27,7 @@ ERROR(S):
 
 ```bash
 dotnet tool install --global AutoWifiLogin
+
 autowifilogin -u username -p password -t Win
 ```
 
