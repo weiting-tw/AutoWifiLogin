@@ -6,10 +6,6 @@
 AutoWifiLogin 1.0.3
 Copyright (C) 2021 Weiting
 
-ERROR(S):
-  Required option 'u, username' is missing.
-  Required option 'p, password' is missing.
-
   -u, --username    Required. Your account
 
   -p, --password    Required. Your password
