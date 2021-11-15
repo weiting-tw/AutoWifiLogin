@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
     <PackageId>AutoWifiLogin</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>AutoWifiLogin</ToolCommandName>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Authors>Weiting</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Auto Login Wifi Certification</Description>
@@ -14,7 +14,9 @@
     <PackageLicenseExpression></PackageLicenseExpression>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
-    <RepositoryUrl>https://github.com/a26007565/AutoWifiLogin</RepositoryUrl>
+    <RepositoryUrl>https://github.com/weiting-tw/AutoWifiLogin</RepositoryUrl>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <PackageTags>GSS;Wifi Login;Wifi;Auto</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

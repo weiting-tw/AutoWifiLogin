@@ -1,0 +1,38 @@
+name: Publish Docker
+on:
+  push:
+  # release:
+  #   types:
+  #   - published
+
+env:
+  CONFIGURATION: Release
+  DOTNET_CORE_VERSION: 6.0.x
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    
+    - name: Restore
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+    
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: myDocker/repository
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Publish the package to nuget.org
+      run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
