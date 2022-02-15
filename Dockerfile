@@ -1,9 +1,9 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/runtime:3.1 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["AutoWifiLogin.csproj", "."]
 RUN dotnet restore "./AutoWifiLogin.csproj"
@@ -12,7 +12,7 @@ WORKDIR "/src/."
 RUN dotnet build "AutoWifiLogin.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AutoWifiLogin.csproj" -c Release -o /app/publish
+RUN dotnet publish "AutoWifiLogin.csproj" -f net6.0 -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
