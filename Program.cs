@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using CommandLine;
@@ -75,8 +76,9 @@ namespace AutoWifiLogin
         public class WifiService : IWifiService
         {
             private HttpClient HttpClient { get; }
-            private const string _winWifiRedirectUrl = "http://www.msftconnecttest.com/redirect";
-            private const string _macWifiRedirectUrl = "http://captive.apple.com/hotspot-detect.html";
+            private const string WinWifiRedirectUrl = "http://www.msftconnecttest.com/redirect";
+            private const string MacWifiRedirectUrl = "http://captive.apple.com/hotspot-detect.html";
+            private readonly Regex _locationRegex = new Regex("window.location=\"(?<location>\\S+)\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             public WifiService(HttpClient httpClient)
             {
@@ -92,12 +94,22 @@ namespace AutoWifiLogin
                 }
 
                 var response = isWin
-                    ? await HttpClient.GetAsync(_winWifiRedirectUrl).ConfigureAwait(false)
-                    : await HttpClient.GetAsync(_macWifiRedirectUrl).ConfigureAwait(false);
-                var loginUrl = response.Headers.Location ?? response.RequestMessage.RequestUri;
+                    ? await HttpClient.GetAsync(WinWifiRedirectUrl).ConfigureAwait(false)
+                    : await HttpClient.GetAsync(MacWifiRedirectUrl).ConfigureAwait(false);
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var redirectUri = _locationRegex.IsMatch(responseContent)
+                    ? _locationRegex.Match(responseContent).Groups.TryGetValue("location", out var group)
+                        ? group is null 
+                            ? null 
+                            : new Uri(group.Value) 
+                        : null
+                    : null;
+                var loginUrl = response.Headers.Location
+                    ?? redirectUri
+                    ?? response.RequestMessage.RequestUri;
                 if (string.IsNullOrWhiteSpace(loginUrl?.AbsoluteUri)
-                    || loginUrl.AbsoluteUri == _winWifiRedirectUrl
-                    || loginUrl.AbsoluteUri == _macWifiRedirectUrl)
+                    || loginUrl.AbsoluteUri == WinWifiRedirectUrl
+                    || loginUrl.AbsoluteUri == MacWifiRedirectUrl)
                 {
                     return true;
                 }
