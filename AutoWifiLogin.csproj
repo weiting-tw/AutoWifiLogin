@@ -17,11 +17,15 @@
     <RepositoryUrl>https://github.com/weiting-tw/AutoWifiLogin</RepositoryUrl>
     <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
     <PackageTags>GSS;Wifi Login;Wifi;Auto</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
     <None Include="LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

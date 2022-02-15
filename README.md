@@ -3,7 +3,7 @@
 ## Command Info
 
 ```bash
-AutoWifiLogin 1.0.3
+AutoWifiLogin 1.1.1
 Copyright (C) 2021 Weiting
 
   -u, --username    Required. Your account
