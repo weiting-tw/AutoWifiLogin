@@ -8,7 +8,6 @@
     <ToolCommandName>AutoWifiLogin</ToolCommandName>
     <Version>1.1.1</Version>
     <Authors>Weiting</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Auto Login Wifi Certification</Description>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageLicenseExpression></PackageLicenseExpression>

@@ -30,5 +30,5 @@ autowifilogin -u username -p password -t Win
 ### docker
 
 ```bash
-docker run --rm a26007565/autowifilogin -u username -p password -t Win
+docker run --rm ghcr.io/weiting-tw/autowifilogin/autowifilogin:latest -u username -p password -t Win
 ```
